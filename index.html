@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Fourth Dimension</title>
+
+  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+
+  <script>
+    Pi.init({
+      version: "2.0",
+      sandbox: true
+    });
+  </script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f8f6ef;
+      color: #123;
+      text-align: center;
+    }
+
+    .header {
+      background: #00a6a6;
+      color: white;
+      padding: 25px 15px;
+    }
+
+    .logo {
+      font-size: 42px;
+      font-weight: bold;
+    }
+
+    h1 {
+      margin: 10px 0 5px;
+    }
+
+    .tagline {
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 30px 20px;
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+    }
+
+    button {
+      background: #00a6a6;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 17px;
+      cursor: pointer;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    #status {
+      margin-top: 20px;
+      font-size: 16px;
+    }
+
+    footer {
+      margin-top: 50px;
+      padding: 20px;
+      font-size: 13px;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="logo">4D</div>
+    <h1>Fourth Dimension</h1>
+    <div class="tagline">
+      Focusing Your Work Socially
+    </div>
+  </div>
+
+  <div class="card">
+
+    <h2>Welcome to Fourth Dimension</h2>
+
+    <p>
+      A Pi Network ecosystem application
+      connecting people, services and opportunities.
+    </p>
+
+    <button id="login">
+      Sign in with Pi
+    </button>
+
+    <div id="status">
+      Ready for Pi Testnet
+    </div>
+
+  </div>
+
+  <footer>
+    Fourth Dimension • Pi Network Ecosystem
+  </footer>
+
+  <script>
+    document.getElementById("login").onclick = async function () {
+
+      const status = document.getElementById("status");
+
+      try {
+
+        status.innerText = "Connecting to Pi...";
+
+        const auth = await Pi.authenticate(
+          ["username"],
+          function (payment) {
+            console.log("Incomplete payment:", payment);
+          }
+        );
+
+        status.innerText =
+          "Welcome, @" + auth.user.username;
+
+      } catch (error) {
+
+        console.error(error);
+
+        status.innerText =
+          "Pi login was cancelled or is not available yet.";
+
+      }
+    };
+  </script>
+
+</body>
+</html>
